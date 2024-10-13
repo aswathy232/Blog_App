@@ -12,7 +12,7 @@ The goal of the project is to create a blog web application using Python-Django,
 #### $ git clone https://github.com/aswathy232/Blog_App.git
 #### Create a virtual environment to install dependencies in and activate it:
 #### $ virtualenv env
-#### $ source env/bin/activate
+#### $ env/bin/activate
 #### Then install the dependencies:
 #### (env)$ pip install -r requirements.txt 
 #### Once pip has finished downloading the dependencies:
