@@ -1,0 +1,54 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-center mb-6 text-purple-600">Welcome {{ request.user }}</h1>
+    <p class="text-center text-gray-700 mb-12">Sharing thoughts, experiences, and ideas here..</p>
+
+    <div class="text-right mb-4">
+       
+        <a href="/create-post" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Create New Post</a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for post in page_obj %}
+            <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-transform duration-300">
+                <div class="p-6">
+                    <h2 class="text-2xl font-semibold mb-2">{{ post.title }}</h2>
+                    <p class="mb-4">{{ post.content|truncatewords:30 }}</p>
+                    <a href="{% url 'view_post' post.id %}" class="bg-white text-blue-600 py-2 px-4 rounded-lg hover:bg-blue-600 hover:text-white transition">
+                        Read more
+                       
+                    </a>
+                </div>
+                <div class="bg-blue-700 p-4">
+                    <p class="text-sm">By {{ post.author.username }} on {{ post.created_at|date:"F j, Y" }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-span-1">
+                <p class="text-center text-gray-500">No posts available.</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="mt-6">
+        <nav aria-label="Page navigation">
+            <ul class="flex justify-center space-x-2">
+                {% if page_obj.has_previous %}
+                    <li><a href="?page={{ page_obj.previous_page_number }}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Previous</a></li>
+                {% endif %}
+                <li class="text-gray-700">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</li>
+                {% if page_obj.has_next %}
+                    <li><a href="?page={{ page_obj.next_page_number }}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Next</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>
+{% endblock %}

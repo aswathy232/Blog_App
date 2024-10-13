@@ -1,0 +1,105 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Guest Page{% endblock %}</title>
+    <link href="{% static 'css/tailwind.css' %}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <header class="bg-gradient-to-r from-blue-500 to-indigo-600 shadow-lg">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-white">
+                {% block header %}BlogApp{% endblock %}
+            </h1>
+            <div class="relative">
+                {% if user.is_authenticated %}
+                    <div class="flex items-center space-x-4 ">
+                        <!-- Add Notification Icon if needed -->
+                    
+
+                        <img src="{{ user.profile.profile_pic.url }}" alt="" class="w-10 h-10 rounded-full cursor-pointer border-2 border-white shadow-lg transition-transform transform hover:scale-110" id="profile-icon" onclick="toggleDropdown()">
+                        <span class="text-white" >Click here</span>
+                        <div id="dropdown" class="hidden absolute right-0 z-10 w-48 bg-white shadow-xl mt-3 rounded-lg ring-1 ring-gray-200 mt-20">
+                            <a href="{% url 'profile_view' %}" class="block px-4 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-600 transition duration-150 ease-in-out rounded-t-lg">
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                        <path fill-rule="evenodd" d="M7 2a2 2 0 0 0-2 2v1a1 1 0 0 0 0 2v1a1 1 0 0 0 0 2v1a1 1 0 1 0 0 2v1a1 1 0 1 0 0 2v1a1 1 0 1 0 0 2v1a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H7Zm3 8a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm-1 7a3 3 0 0 1 3-3h2a3 3 0 0 1 3 3 1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
+                                      </svg>
+                                      
+                                    <span>View Profile</span>
+                                </div>
+                            </a>
+
+                            <a href="{% url 'user_feed' %}" class="block px-4 py-2 text-gray-800 hover:bg-yellow-100 hover:text-yellow-600 transition duration-150 ease-in-out">
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-[45px] h-[45px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.03v13m0-13c-2.819-.831-4.715-1.076-8.029-1.023A.99.99 0 0 0 3 6v11c0 .563.466 1.014 1.03 1.007 3.122-.043 5.018.212 7.97 1.023m0-13c2.819-.831 4.715-1.076 8.029-1.023A.99.99 0 0 1 21 6v11c0 .563-.466 1.014-1.03 1.007-3.122-.043-5.018.212-7.97 1.023"/>
+                                      </svg>
+                                      
+                                    <span>My Feed</span>
+                                </div>
+                            </a>
+                        
+                            <a href="{% url 'profile_edit' %}" class="block px-4 py-2 text-gray-800 hover:bg-yellow-100 hover:text-yellow-600 transition duration-150 ease-in-out">
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-[45px] h-[45px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 3v4a1 1 0 0 1-1 1H5m4 6 2 2 4-4m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z"/>
+                                      </svg>
+                                      
+                                    <span>Edit Profile</span>
+                                </div>
+                            </a>
+
+                        
+                            <a href="{% url 'logout' %}" class="block px-4 py-2 text-gray-800 hover:bg-red-100 hover:text-red-600 transition duration-150 ease-in-out rounded-b-lg">
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
+                                      </svg>
+                                      
+                                    <span>Logout</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}" class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg shadow-lg transition duration-300">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto mt-10">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        // Close dropdown if clicked outside
+        window.onclick = function(event) {
+            if (!event.target.matches('#profile-icon')) {
+                const dropdown = document.getElementById('dropdown');
+                if (!dropdown.classList.contains('hidden')) {
+                    dropdown.classList.add('hidden');
+                }
+            }
+        };
+    </script>
+
+    <!-- Uncomment the footer if needed -->
+    
+    <footer class="bg-gray-800 py-4 text-center text-white mt-20">
+        <p>&copy; 2024 - Blog Application</p>
+    </footer> 
+   
+</body>
+</html>

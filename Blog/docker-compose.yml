@@ -1,0 +1,24 @@
+
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/django  # Mount the current directory to /django in the container
+    container_name: blog_application_container
+    command: python manage.py runserver 0.0.0.0:8000  # Run the Django development server
+
+
+
+  db:
+    image: mysql:9.0.1
+    environment:
+      MYSQL_DATABASE: BlogApp
+      MYSQL_ROOT_PASSWORD: admin  # Set root password here
+    ports:
+      - "3306:3306"  # Map MySQL port to the host
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+

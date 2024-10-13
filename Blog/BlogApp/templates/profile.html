@@ -1,0 +1,46 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Profile View{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto p-6 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg shadow-lg text-white">
+    <div class="text-center mb-6">
+        <h1 class="text-4xl font-bold mb-2">My Profile</h1>
+        <p class="text-lg">View and manage your personal information</p>
+    </div>
+
+    <div class="flex items-center mb-8 bg-white text-gray-900 rounded-lg p-6 shadow-lg">
+        {% if profile.profile_pic %}
+                <img src="{{ profile.profile_pic.url }}" alt="" class="rounded-full w-32 h-32 border-4 border-black-600 shadow-xl transition-transform transform hover:scale-110">
+            {% else %}
+            <img src="{% static 'images/avathar.jpg' %}" alt="" class="rounded-full w-32 h-32 mr-6 shadow-md">
+        {% endif %}
+
+        <div>
+            <h2 class="text-3xl font-bold">{{ profile.user.username }}</h2>
+            <p class="text-lg text-gray-600">{{ profile.user.email }}</p>
+            <p class="text-lg text-gray-600">{{ profile.location }}</p>
+        </div>
+        
+    </div>
+
+    <div class="bg-white rounded-lg p-6 text-gray-800 shadow-md">
+        <h3 class="text-2xl font-semibold mb-4">About Me</h3>
+        <p class="mb-6">{{ profile.bio }}</p> <!-- Assuming you have a 'bio' field in the Profile model -->
+
+        <a href="{% url 'profile_edit' %}" class="mt-4 inline-block px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform">
+            Edit Profile
+        </a>
+        <a href="{% url 'home' %}" class="mt-4 inline-block px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform">
+            Home
+        </a>
+    </div>
+
+
+    
+
+
+</div>
+{% endblock %}

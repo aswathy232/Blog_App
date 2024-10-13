@@ -1,0 +1,64 @@
+
+
+{% extends 'base.html' %}
+
+{% block title %}Create New Post{% endblock %}
+
+{% block content %}
+<div class="container mx-auto max-w-3xl p-10 bg-white shadow-xl rounded-lg mt-12">
+    <h1 class="text-4xl font-extrabold mb-8 text-center text-gray-800">Create a New Post</h1>
+    
+    <form method="post" enctype="multipart/form-data" class="space-y-8">
+        {% csrf_token %}
+        
+        <div class="relative">
+            <label for="title" class="block text-sm font-semibold text-gray-700">Post Title</label>
+            <input type="text" name="title" id="title" 
+                   class="mt-2 block w-full p-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out focus:ring-blue-500 focus:border-blue-500 focus:shadow-lg" 
+                   placeholder="Enter the post title" required>
+            {% if form.title.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.title.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div class="relative">
+            <label for="content" class="block text-sm font-semibold text-gray-700">Post Content</label>
+            <textarea name="content" id="content" rows="6" 
+                      class="mt-2 block w-full p-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out focus:ring-blue-500 focus:border-blue-500 focus:shadow-lg" 
+                      placeholder="Write your content here..." required></textarea>
+            {% if form.content.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.content.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div class="relative">
+            <label for="image" class="block text-sm font-semibold text-gray-700">Post Image</label>
+            <div class="mt-2 flex items-center">
+                <input type="file" name="image" id="image" 
+                       class="block w-full p-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out focus:ring-blue-500 focus:border-blue-500 focus:shadow-lg"
+                       accept="image/*">
+            </div>
+            {% if form.image.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.image.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div class="relative">
+            <label for="video_url" class="block text-sm font-semibold text-gray-700">Video URL</label>
+            <input type="url" name="video_url" id="video_url" 
+                   class="mt-2 block w-full p-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out focus:ring-blue-500 focus:border-blue-500 focus:shadow-lg" 
+                   placeholder="Optional: Add a video link (e.g., YouTube)">
+            {% if form.video_url.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.video_url.errors }}</p>
+            {% endif %}
+        </div>
+
+        <div class="flex justify-between">
+            <button type="submit" class="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 transition duration-300">Publish Post</button>
+            
+            <!-- Cancel Button -->
+            <a href="{% url 'home' %}" class="bg-gray-500 text-white py-2 px-6 rounded-md hover:bg-gray-600 transition duration-300">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
