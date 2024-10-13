@@ -7,7 +7,8 @@ The goal of the project is to create a blog web application using Python-Django,
 
 
 ## Setup
-The first thing to do is to clone the repository:
+
+#### The first thing to do is to clone the repository:
 $ git clone https://github.com/aswathy232/Blog_App.git
 $ cd BlogProj
 Create a virtual environment to install dependencies in and activate it:
