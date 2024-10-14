@@ -23,3 +23,6 @@ The goal of the project is to create a blog web application using Python-Django,
 ## for docker setup
 $ docker-compose up --build
 
+## REST Api
+$ http://127.0.0.1:8000/posts
+
